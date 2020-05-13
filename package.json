@@ -11,6 +11,9 @@
     "build": "S3_BUCKET=lambda-deploy-asln ./bin/build",
     "deploy": "S3_BUCKET=lambda-deploy-asln ./bin/deploy"
   },
-  "dependencies": {},
+  "dependencies": {
+    "apollo-server-lambda": "^2.13.1",
+    "graphql": "^15.0.0"
+  },
   "devDependencies": {}
 }
