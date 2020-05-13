@@ -1,0 +1,17 @@
+{
+  "name": "apollo-server-lambda-nodejs",
+  "version": "1.0.0",
+  "description": "graphQL server written in node and deployed to AWS lambda",
+  "main": "index.js",
+  "repository": "https://github.com/adikari/apollo-server-lambda-nodejs.git",
+  "author": "subash <me@subash.com.au>",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "apollo-server-lambda": "^2.13.1",
+    "graphql": "^15.0.0"
+  },
+  "devDependencies": {
+    "jest": "^26.0.1"
+  }
+}

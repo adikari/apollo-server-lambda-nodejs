@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -euo pipefail
+
+OUTPUT=dist.zip
+ROOT_DIR="$( dirname "${BASH_SOURCE[0]}" )"/..
+
+echo "cleaning up old build.."
+[ -f $OUTPUT ] && rm $OUTPUT
+
+echo "create zip of source code"
+zip -r $OUTPUT $ROOT_DIR -x '*.git*'
