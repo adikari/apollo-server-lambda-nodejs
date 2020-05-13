@@ -7,11 +7,10 @@
   "author": "subash <me@subash.com.au>",
   "license": "MIT",
   "private": false,
-  "dependencies": {
-    "apollo-server-lambda": "^2.13.1",
-    "graphql": "^15.0.0"
+  "scripts": {
+    "build": "S3_BUCKET=lambda-deploy-asln ./bin/build",
+    "deploy": "S3_BUCKET=lambda-deploy-asln ./bin/deploy"
   },
-  "devDependencies": {
-    "jest": "^26.0.1"
-  }
+  "dependencies": {},
+  "devDependencies": {}
 }

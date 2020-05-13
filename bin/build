@@ -2,11 +2,23 @@
 
 set -euo pipefail
 
-OUTPUT=dist.zip
+export APP_VERSION=$(date +%s)
+
+OUTPUT_DIR=dist
+CURRENT_DIR=$(pwd)
 ROOT_DIR="$( dirname "${BASH_SOURCE[0]}" )"/..
 
-echo "cleaning up old build.."
-[ -f $OUTPUT ] && rm $OUTPUT
+cd $ROOT_DIR
 
-echo "create zip of source code"
-zip -r $OUTPUT $ROOT_DIR -x '*.git*'
+echo "cleaning up old build.."
+[ -d $OUTPUT_DIR ] && rm -rf $OUTPUT_DIR
+
+mkdir dist
+
+echo "zipping source code.."
+zip -rq $OUTPUT_DIR/dist-$APP_VERSION.zip src node_modules package.json
+
+echo "uploading source code to s3.."
+aws s3 cp $OUTPUT_DIR/dist-$APP_VERSION.zip s3://$S3_BUCKET/dist-$APP_VERSION.zip
+
+cd $CURRENT_DIR

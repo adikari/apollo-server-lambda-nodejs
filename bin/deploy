@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -euo pipefail
+
+ROOT_DIR="$( dirname "${BASH_SOURCE[0]}" )"/..
+
+. $ROOT_DIR/bin/build
+
+echo "deploying application.."
+aws cloudformation deploy \
+  --template-file $ROOT_DIR/cloudformation.yml \
+  --stack-name apollo-server-lambda-nodejs \
+  --parameter-overrides Version=$APP_VERSION BucketName=$S3_BUCKET \
+  --capabilities CAPABILITY_IAM
+
+unset APP_VERSION
+echo "deployment successful.."
