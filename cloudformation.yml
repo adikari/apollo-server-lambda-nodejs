@@ -78,3 +78,16 @@ Resources:
     DependsOn:
       - GraphQLApiResource
       - GraphQLApiMethod
+
+  GraphQLApiPermission:
+    Type: 'AWS::Lambda::Permission'
+    Properties:
+      Action: lambda:invokeFunction
+      FunctionName: !GetAtt LambdaFunction.Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${GraphQLApi}/*
+
+Outputs:
+  ApiUrl:
+    Description: Invoke url of API Gateway endpoint
+    Value: !Sub https://${GraphQLApi}.execute-api.${AWS::Region}.amazonaws.com/v1/graphql
