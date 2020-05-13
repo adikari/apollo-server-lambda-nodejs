@@ -45,3 +45,36 @@ Resources:
               - logs:CreateLogStream
               - logs:PutLogEvents
               Resource: "*"
+
+  GraphQLApi:
+    Type: 'AWS::ApiGateway::RestApi'
+    Properties:
+      Name: apollo-graphql-api
+
+  GraphQLApiResource:
+    Type: 'AWS::ApiGateway::Resource'
+    Properties:
+      ParentId: !GetAtt GraphQLApi.RootResourceId
+      RestApiId: !Ref GraphQLApi
+      PathPart: 'graphql'
+
+  GraphQLApiMethod:
+    Type: 'AWS::ApiGateway::Method'
+    Properties:
+      RestApiId: !Ref GraphQLApi
+      ResourceId: !Ref GraphQLApiResource
+      AuthorizationType: None
+      HttpMethod: POST
+      Integration:
+        Type: AWS_PROXY
+        IntegrationHttpMethod: POST
+        Uri: !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${LambdaFunction.Arn}/invocations
+
+  GraphQLApiDeployment:
+    Type: 'AWS::ApiGateway::Deployment'
+    Properties:
+      RestApiId: !Ref GraphQLApi
+      StageName: v1
+    DependsOn:
+      - GraphQLApiResource
+      - GraphQLApiMethod
