@@ -8,7 +8,8 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "deploy": "S3_BUCKET=lambda-deploy-asln ./bin/deploy"
+    "deploy": "S3_BUCKET=lambda-deploy-asln ./bin/deploy",
+    "dev": "sam local start-api --template-file cloudformation.yml"
   },
   "dependencies": {
     "apollo-server-lambda": "^2.13.1",
