@@ -59,19 +59,7 @@ Resources:
       RestApiId: !Ref GraphQLApi
       PathPart: 'graphql'
 
-  GraphQLApiGetMethod:
-    Type: 'AWS::ApiGateway::Method'
-    Properties:
-      RestApiId: !Ref GraphQLApi
-      ResourceId: !Ref GraphQLApiResource
-      AuthorizationType: None
-      HttpMethod: GET
-      Integration:
-        Type: AWS_PROXY
-        IntegrationHttpMethod: GET
-        Uri: !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${LambdaFunction.Arn}/invocations
-
-  GraphQLApiPostMethod:
+  GraphQLApiMethod:
     Type: 'AWS::ApiGateway::Method'
     Properties:
       RestApiId: !Ref GraphQLApi
@@ -90,8 +78,7 @@ Resources:
       StageName: v1
     DependsOn:
       - GraphQLApiResource
-      - GraphQLApiGetMethod
-      - GraphQLApiPostMethod
+      - GraphQLApiMethod
 
   GraphQLApiPermission:
     Type: 'AWS::Lambda::Permission'
