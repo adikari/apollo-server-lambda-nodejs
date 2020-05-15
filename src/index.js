@@ -4,8 +4,6 @@ const { graphqlSchema } = require('./gql-schema');
 
 const { typeDefs, resolvers } = graphqlSchema();
 
-console.log(typeDefs, resolvers);
-
 const server = new ApolloServer({
   typeDefs,
   resolvers,

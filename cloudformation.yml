@@ -21,6 +21,7 @@ Resources:
       Description: GraphQL Apollo Server
       Role: !GetAtt LambdaExecutionRole.Arn
       Runtime: nodejs10.x
+      Timeout: 10
 
   LambdaExecutionRole:
     Type: "AWS::IAM::Role"
